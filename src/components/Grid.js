@@ -59,16 +59,27 @@ export class Grid extends Component {
 	};
 
 	toggleModal = (report) => {
-		console.log('aaa toggle ' + report);
 		if (!report) {
-			console.log('aloooo toggle');
 			this.setState({ modalActive: false });
 		}
+	};
+
+	getMaxWidth = (report) => {
+		const windowWidth = window.innerWidth;
+		const { activeReports, panes } = this.state;
+		const paneWidths = activeReports.map((report) => panes[report].width).reduce((a, b) => a + b, 0);
+		return windowWidth - paneWidths + this.state.panes[report].width - 100;
+	};
+	getWidth = (report) => {
+		return this.state.panes[report].width;
 	};
 
 	modalContent = <div>aa</div>;
 
 	render() {
+		const paneWidths = Object.values(this.state.panes).map((val) => val.width).reduce((a, b) => a + b, 0);
+		const availableWidth = window.innerWidth - paneWidths;
+		console.log(availableWidth);
 		const reportsList = (
 			<ul>
 				{Object.keys(this.state.reports).map((report) => (
@@ -86,12 +97,12 @@ export class Grid extends Component {
 			</ul>
 		);
 		// let modalContent;
-		console.log('mc: ' + this.modalContent);
+
 		return (
 			<div className="grid">
 				<SortablePane
 					disableEffect
-					syle={{ height: '600', maxWidth: '100vw' }}
+					syle={{ height: '600', maxWidth: '100vw', border: '1px dotted black' }}
 					direction="horizontal"
 					order={this.state.order}
 					onOrderChange={(order) => {
@@ -122,7 +133,7 @@ export class Grid extends Component {
 								maxHeight="600"
 								minHeight="100"
 								minWidth="100"
-								maxWidth="800"
+								maxWidth={this.getMaxWidth(report)}
 							>
 								<button
 									className="button button--transparent button-fullscreen"
