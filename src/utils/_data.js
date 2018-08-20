@@ -296,7 +296,7 @@ export function _getDailySales() {
 	// console.log(...data);
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
-			resolve(...dailySales.sort((a, b) => new Date(b.date) - new Date(a.date)));
+			resolve([ ...dailySales ].sort((a, b) => new Date(b.date) - new Date(a.date)));
 		}, 1000);
 	});
 }
@@ -305,7 +305,7 @@ export function _getSalesByProduct() {
 	// console.log(...data);
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
-			resolve(...salesByProduct.sort((a, b) => new Date(b.amount) - new Date(a.amount)));
+			resolve({ ...salesByProduct });
 		}, 1000);
 	});
 }
@@ -314,7 +314,7 @@ export function _getMonthlySales() {
 	// console.log(...data);
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
-			resolve(...salesByProduct.sort((a, b) => new Date(b.amount) - new Date(a.amount)));
+			resolve([ ...monthlySales ].sort((a, b) => new Date(a.month) - new Date(b.month)));
 		}, 1000);
 	});
 }

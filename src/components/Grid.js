@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SortablePane, Pane } from 'react-sortable-pane';
+import { connect } from 'react-redux';
 
 import GridItem from './GridItem';
 
@@ -41,7 +42,9 @@ export class Grid extends Component {
 		}
 	};
 
-	componentDidMount() {}
+	componentDidMount() {
+		// console.log(this.props)
+	}
 
 	toggleActiveReport = (report) => {
 		if (this.state.activeReports.includes(report)) {
@@ -109,9 +112,11 @@ export class Grid extends Component {
 								<p>{report}</p>
 								<GridItem
 									num={1}
-									data={this.state.sales}
+									report={report}
+									data={this.props[report] ? this.props[report] : this.state.sales}
 									height={this.state.panes[report].height}
 									width={this.state.panes[report].width}
+									reportType={this.state.reports[report].type}
 
 									// report={this.state.reports.dailySales}
 								/>
@@ -132,4 +137,6 @@ export class Grid extends Component {
 	}
 }
 
-export default Grid;
+const mapStateToProps = (state) => ({ dailySales: state.sales.dailySales, monthlySales: state.sales.monthlySales });
+
+export default connect(mapStateToProps)(Grid);

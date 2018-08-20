@@ -9,6 +9,7 @@ export const getDailySales = (sales) => {
 };
 
 export const getMonthlySales = (sales) => {
+	console.log(sales);
 	return {
 		type: GET_MONTHLY_SALES,
 		sales
