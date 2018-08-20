@@ -2,7 +2,9 @@ import React from 'react';
 import { BarChart, Legend, XAxis, Bar, YAxis, Tooltip } from 'recharts';
 import ChartBar from './charts/ChartBar';
 import ChartPie from './charts/ChartPie';
+
 import FullScreen from './icons/FullScreen';
+import ChartRadialBar from './charts/ChartRadialBar';
 
 const GridItem = ({ report, reportType, data, height, width, showLabel }) => {
 	let dataKeyX = '';
@@ -16,21 +18,40 @@ const GridItem = ({ report, reportType, data, height, width, showLabel }) => {
 	if (report === 'productSales') {
 		dataKeyX = 'product';
 	}
+	if (report === 'salesByAgeGroup') {
+		dataKeyX = 'age';
+	}
 	if (reportType === 'BarChart') {
 		inside = (
 			<ChartBar report={report} dataKeyX={dataKeyX} data={data} width={width * 90 / 100} height={height * 80 / 100} />
 		);
-
 	}
 	if (reportType === 'PieChart') {
 		inside = (
-			<ChartPie report={report} dataKeyX="amount" data={data} width={width * 99 / 100} height={height * 75 / 100} showLabel={showLabel} />
+			<ChartPie
+				report={report}
+				dataKeyX="amount"
+				data={data}
+				width={width * 99 / 100}
+				height={height * 75 / 100}
+				showLabel={showLabel}
+			/>
 		);
-
+	}
+	if (reportType === 'RadialBarChart') {
+		inside = (
+			<ChartRadialBar
+				report={report}
+				dataKeyX="amount"
+				data={data}
+				width={width * 99 / 100}
+				height={height * 90 / 100}
+				showLabel={showLabel}
+			/>
+		);
 	}
 	return (
 		<div className="grid--item">
-
 			{inside}
 			<style jsx>{`
 				.grid--item {

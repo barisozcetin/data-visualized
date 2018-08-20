@@ -9,7 +9,7 @@ const Modal = (props) => {
 			<style jsx>{`
 				.modal-content {
 					background-color: white;
-					min-height: 80vh;
+					min-height: 50vh;
 					min-width: 50vw;
 					margin: 15px;
 					display: flex;

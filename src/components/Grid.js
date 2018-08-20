@@ -9,12 +9,12 @@ export class Grid extends Component {
 	state = {
 		modalActive: false,
 		sales: [ { name: 'ali', amount: 100 }, { name: 'baris', amount: 146 }, { name: 'osman', amount: 167 } ],
-		order: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAge' ],
+		order: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAgeGroup' ],
 		panes: {
 			dailySales: { height: 300, width: 250 },
 			monthlySales: { height: 300, width: 250 },
 			productSales: { height: 300, width: 250 },
-			salesByAge: { height: 300, width: 250 }
+			salesByAgeGroup: { height: 300, width: 250 }
 		},
 		reports: {
 			dailySales: {
@@ -32,13 +32,13 @@ export class Grid extends Component {
 				description: 'Product Sales',
 				type: 'PieChart'
 			},
-			salesByAge: {
-				name: 'salesByAge',
+			salesByAgeGroup: {
+				name: 'salesByAgeGroup',
 				description: 'Sales by Customer Age',
 				type: 'RadialBarChart'
 			}
 		},
-		activeReports: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAge' ],
+		activeReports: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAgeGroup' ],
 		data: {
 			dailySales: ''
 		}
@@ -179,10 +179,16 @@ export class Grid extends Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	dailySales: state.sales.dailySales,
-	monthlySales: state.sales.monthlySales,
-	productSales: state.sales.productSales
-});
+// const mapStateToProps = (state) => ({
+// 	dailySales: state.sales.dailySales,
+// 	monthlySales: state.sales.monthlySales,
+// 	productSales: state.sales.productSales,
+// 	salesByAgeGroup
+// });
+
+const mapStateToProps = (state) => {
+	const { dailySales, monthlySales, productSales, salesByAgeGroup } = state.sales;
+	return { dailySales, monthlySales, productSales, salesByAgeGroup };
+};
 
 export default connect(mapStateToProps)(Grid);

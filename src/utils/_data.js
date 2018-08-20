@@ -292,32 +292,40 @@ const monthlySales = [
 	}
 ];
 
+// const salesByAgeGroup = [
+// 	{
+// 		age: '14-17',
+// 		quantity: 15,
+// 		amount: 214
+// 	},
+// 	{
+// 		age: '18-24',
+// 		quantity: 26,
+// 		amount: 465
+// 	},
+// 	{
+// 		age: '25-30',
+// 		quantity: 48,
+// 		amount: 1221
+// 	},
+// 	{
+// 		age: '30-45',
+// 		quantity: 33,
+// 		amount: 860
+// 	},
+// 	{
+// 		age: '45+',
+// 		quantity: 30,
+// 		amount: 820
+// 	}
+// ];
+
 const salesByAgeGroup = [
-	{
-		age: '14-17',
-		quantity: 15,
-		amount: 214.63
-	},
-	{
-		age: '18-24',
-		quantity: 26,
-		amount: 465.21
-	},
-	{
-		age: '25-30',
-		quantity: 48,
-		amount: 1221.2
-	},
-	{
-		age: '30-45',
-		quantity: 33,
-		amount: 860.1
-	},
-	{
-		age: '45+',
-		quantity: 30,
-		amount: 820.0
-	}
+	{ name: '18-24', quantity: 60, amount: 2400, fill: '#8884d8' },
+	{ name: '25-29', quantity: 50, amount: 4500, fill: '#83a6ed' },
+	{ name: '30-39', quantity: 30, amount: 1398, fill: '#8dd1e1' },
+	{ name: '40-49', quantity: 48, amount: 1908, fill: '#a4de6c' },
+	{ name: '50+', quantity: 62, amount: 2800, fill: '#d0ed57' }
 ];
 
 export function _getDailySales() {
