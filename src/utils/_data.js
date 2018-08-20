@@ -301,11 +301,11 @@ export function _getDailySales() {
 	});
 }
 
-export function _getSalesByProduct() {
+export function _getProductSales() {
 	// console.log(...data);
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
-			resolve({ ...salesByProduct });
+			resolve([ ...salesByProduct ]);
 		}, 1000);
 	});
 }

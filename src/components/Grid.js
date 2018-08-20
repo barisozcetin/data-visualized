@@ -130,6 +130,7 @@ export class Grid extends Component {
 						display: grid;
 						min-height: 100vh;
 						grid-template-rows: 650px auto;
+						margin: 20px;
 					}
 				`}</style>
 			</div>
@@ -137,6 +138,10 @@ export class Grid extends Component {
 	}
 }
 
-const mapStateToProps = (state) => ({ dailySales: state.sales.dailySales, monthlySales: state.sales.monthlySales });
+const mapStateToProps = (state) => ({
+	dailySales: state.sales.dailySales,
+	monthlySales: state.sales.monthlySales,
+	productSales: state.sales.productSales
+});
 
 export default connect(mapStateToProps)(Grid);

@@ -1,6 +1,8 @@
 import React from 'react';
 import { BarChart, Legend, XAxis, Bar, YAxis, Tooltip } from 'recharts';
 import ChartBar from './charts/ChartBar';
+import ChartPie from './charts/ChartPie';
+import FullScreen from './icons/FullScreen';
 
 const GridItem = ({ report, reportType, data, height, width }) => {
 	let dataKeyX = '';
@@ -14,17 +16,20 @@ const GridItem = ({ report, reportType, data, height, width }) => {
 		dataKeyX = 'product';
 	}
 	if (reportType === 'BarChart') {
+		// const inside = 	<ChartBar report={report} dataKeyX={dataKeyX} data={data} width={width * 90 / 100} height={height * 80 / 100} />
 		return (
 			<div className="grid--item">
-				{reportType === 'BarChart' && (
-					<ChartBar
-						report={report}
-						dataKeyX={dataKeyX}
-						data={data}
-						width={width * 90 / 100}
-						height={height * 90 / 100}
-					/>
-				)}
+				<button>
+					<FullScreen />
+				</button>
+				<ChartBar report={report} dataKeyX={dataKeyX} data={data} width={width * 90 / 100} height={height * 80 / 100} />
+			</div>
+		);
+	}
+	if (reportType === 'PieChart') {
+		return (
+			<div className="grid--item">
+				<ChartPie report={report} dataKeyX="amount" data={data} width={width * 99 / 100} height={height * 60 / 100} />
 			</div>
 		);
 	}
