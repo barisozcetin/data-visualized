@@ -229,11 +229,92 @@ const salesByProduct = [
 	}
 ];
 
+const monthlySales = [
+	{
+		month: 1,
+		quantity: 238,
+		amount: 35546.51
+	},
+	{
+		month: 2,
+		quantity: 126,
+		amount: 26999.75
+	},
+	{
+		month: 3,
+		quantity: 284,
+		amount: 31606.08
+	},
+	{
+		month: 4,
+		quantity: 641,
+		amount: 27450.68
+	},
+	{
+		month: 5,
+		quantity: 283,
+		amount: 40227.67
+	},
+	{
+		month: 6,
+		quantity: 579,
+		amount: 17497.96
+	},
+	{
+		month: 7,
+		quantity: 203,
+		amount: 27578.99
+	},
+	{
+		month: 8,
+		quantity: 534,
+		amount: 41676.67
+	},
+	{
+		month: 9,
+		quantity: 266,
+		amount: 69980.07
+	},
+	{
+		month: 10,
+		quantity: 399,
+		amount: 62207.79
+	},
+	{
+		month: 11,
+		quantity: 681,
+		amount: 34671.84
+	},
+	{
+		month: 12,
+		quantity: 325,
+		amount: 47214.63
+	}
+];
+
 export function _getDailySales() {
 	// console.log(...data);
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			resolve(...dailySales.sort((a, b) => new Date(b.date) - new Date(a.date)));
+		}, 1000);
+	});
+}
+
+export function _getSalesByProduct() {
+	// console.log(...data);
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve(...salesByProduct.sort((a, b) => new Date(b.amount) - new Date(a.amount)));
+		}, 1000);
+	});
+}
+
+export function _getMonthlySales() {
+	// console.log(...data);
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve(...salesByProduct.sort((a, b) => new Date(b.amount) - new Date(a.amount)));
 		}, 1000);
 	});
 }
