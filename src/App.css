@@ -10,12 +10,18 @@
 
 .button-fullscreen {
 	position: absolute;
+	left: 0;
 	top: 0;
-	right: 0px;
 	transition: all 0.3s ease-in-out;
 	cursor: pointer;
 	z-index: 1;
 }
 .button-fullscreen:hover {
 	transform: scale(1.2, 1.2);
+}
+
+.button-close {
+	position: absolute;
+	top: 0;
+	right: 0px;
 }

@@ -2,10 +2,6 @@ import React from 'react';
 import { RadialBarChart, RadialBar, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const ChartRadialBar = ({ report, dataKeyX, data, height, width, showLabel }) => {
-	console.log('----');
-	console.log(data);
-	console.log('----');
-
 	return (
 		// <ResponsiveContainer width={width} height={height + 40}>
 		<RadialBarChart

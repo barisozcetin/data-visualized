@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import GridItem from './GridItem';
 import Modal from './Modal';
+import Close from './icons/Close';
 
 export class Grid extends Component {
 	state = {
@@ -38,17 +39,16 @@ export class Grid extends Component {
 				type: 'RadialBarChart'
 			}
 		},
-		activeReports: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAgeGroup' ],
-		data: {
-			dailySales: ''
-		}
+		activeReports: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAgeGroup' ]
 	};
 
 	componentDidMount() {
 		// console.log(this.props)
 	}
 
-	toggleActiveReport = (report) => {
+	toggleActiveReport = (report, event) => {
+		if (event) event.preventDefault();
+		console.log(report);
 		if (this.state.activeReports.includes(report)) {
 			this.setState((prev) => ({ activeReports: prev.activeReports.filter((val) => val !== report) }));
 			this.setState((prev) => ({ order: prev.order.filter((val) => val !== report) }));
@@ -68,7 +68,7 @@ export class Grid extends Component {
 		const windowWidth = window.innerWidth;
 		const { activeReports, panes } = this.state;
 		const paneWidths = activeReports.map((report) => panes[report].width).reduce((a, b) => a + b, 0);
-		return windowWidth - paneWidths + this.state.panes[report].width - 100;
+		return windowWidth - paneWidths + this.state.panes[report].width - 120;
 	};
 	getWidth = (report) => {
 		return this.state.panes[report].width;
@@ -77,9 +77,6 @@ export class Grid extends Component {
 	modalContent = <div>aa</div>;
 
 	render() {
-		const paneWidths = Object.values(this.state.panes).map((val) => val.width).reduce((a, b) => a + b, 0);
-		const availableWidth = window.innerWidth - paneWidths;
-		console.log(availableWidth);
 		const reportsList = (
 			<ul>
 				{Object.keys(this.state.reports).map((report) => (
@@ -96,83 +93,91 @@ export class Grid extends Component {
 				))}
 			</ul>
 		);
-		// let modalContent;
-
 		return (
 			<div className="grid">
-				<SortablePane
-					disableEffect
-					syle={{ height: '600', maxWidth: '100vw', border: '1px dotted black' }}
-					direction="horizontal"
-					order={this.state.order}
-					onOrderChange={(order) => {
-						this.setState({ order });
-						this.forceUpdate();
-					}}
-					onResizeStop={(e, key, dir, ref, d) => {
-						console.log('height: ' + d.height + '-- width: ' + d.width);
-						this.setState({
-							panes: {
-								...this.state.panes,
-								[key]: { height: this.state.panes[key].height + d.height, width: this.state.panes[key].width + d.width }
-							}
-						});
-					}}
-					margin={20}
-					onResize={(e, key, dir, ref, d) => {
-						console.log(d);
-					}}
-				>
-					{this.state.activeReports.map((report, index) => {
-						return (
-							<Pane
-								key={report}
-								defaultSize={{ width: '150', height: '600' }}
-								size={{ width: this.state.panes[report].width, height: this.state.panes[report].height }}
-								style={{ border: '1px solid black', padding: '10px' }}
-								maxHeight="600"
-								minHeight="100"
-								minWidth="100"
-								maxWidth={this.getMaxWidth(report)}
-							>
-								<button
-									className="button button--transparent button-fullscreen"
-									onClick={() => {
-										this.modalContent = (
-											<GridItem
-												num={1}
-												report={report}
-												data={this.props[report] ? this.props[report] : this.state.sales}
-												height={600}
-												width={800}
-												reportType={this.state.reports[report].type}
-												showLabel
-											/>
-										);
-										console.log(this.modalContent);
-										this.setState({ modalActive: true });
-									}}
+				<div className="pane" style={{ height: 'auto', border: '1px dotted black' }}>
+					<SortablePane
+						disableEffect
+						syle={{ height: '600', maxWidth: '100vw', border: '1px solid red' }}
+						direction="horizontal"
+						order={this.state.order}
+						onOrderChange={(order) => {
+							this.setState({ order });
+							this.forceUpdate();
+						}}
+						onResizeStop={(e, key, dir, ref, d) => {
+							// console.log('height: ' + d.height + '-- width: ' + d.width);
+							this.setState({
+								panes: {
+									...this.state.panes,
+									[key]: {
+										height: this.state.panes[key].height + d.height,
+										width: this.state.panes[key].width + d.width
+									}
+								}
+							});
+						}}
+						margin={20}
+					>
+						{this.state.activeReports.map((report, index) => {
+							return (
+								<Pane
+									key={report}
+									defaultSize={{ width: '150', height: '600' }}
+									size={{ width: this.state.panes[report].width, height: this.state.panes[report].height }}
+									style={{ border: '1px solid black', padding: '10px' }}
+									maxHeight="600"
+									minHeight="100"
+									minWidth="100"
+									maxWidth={this.getMaxWidth(report)}
 								>
-									<img
-										src="https://res.cloudinary.com/dydyt6wbt/image/upload/v1534731037/icons/fullscreen.svg"
-										alt="FullScreen"
-										className="image is-16x16 ico-fs"
-									/>
-								</button>
-								<GridItem
-									num={1}
-									report={report}
-									data={this.props[report] ? this.props[report] : this.state.sales}
-									height={this.state.panes[report].height}
-									width={this.state.panes[report].width}
-									reportType={this.state.reports[report].type}
+									<button
+										className="button button--transparent button-fullscreen"
+										onClick={() => {
+											this.modalContent = (
+												<GridItem
+													num={1}
+													report={report}
+													data={this.props[report] ? this.props[report] : this.state.sales}
+													height={window.innerHeight - 100}
+													width={window.innerWidth - 100}
+													reportType={this.state.reports[report].type}
+													showLabel
+												/>
+											);
+											this.setState({ modalActive: true });
+										}}
+										aria-label="full screen"
+									>
+										<img
+											src="https://res.cloudinary.com/dydyt6wbt/image/upload/v1534731037/icons/fullscreen.svg"
+											alt="FullScreen"
+											className="image is-16x16 ico-fs"
+										/>
+									</button>
+									<button
+										className="button is-small button-close button--transparent"
+										onClick={(e) => this.toggleActiveReport(report, e)}
+									>
+										<span className="icon is-small">
+											<Close />
+										</span>
+									</button>
+									<GridItem
+										num={1}
+										report={report}
+										data={this.props[report] ? this.props[report] : this.state.sales}
+										height={this.state.panes[report].height}
+										width={this.state.panes[report].width}
+										reportType={this.state.reports[report].type}
 
-									// report={this.state.reports.dailySales}
-								/>
-							</Pane>
-						);
-					})}
-				</SortablePane>
+										// report={this.state.reports.dailySales}
+									/>
+								</Pane>
+							);
+						})}
+					</SortablePane>
+				</div>
 				<div className="filters">{reportsList}</div>
 				<Modal isActive={this.state.modalActive} onClose={() => this.toggleModal()}>
 					{this.modalContent}
