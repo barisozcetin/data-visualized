@@ -132,7 +132,7 @@ export class Grid extends Component {
 									maxWidth={this.getMaxWidth(report)}
 								>
 									<button
-										className="button button--transparent button-fullscreen"
+										className="button is-small button--transparent button-fullscreen"
 										onClick={() => {
 											this.modalContent = (
 												<GridItem
@@ -149,12 +149,15 @@ export class Grid extends Component {
 										}}
 										aria-label="full screen"
 									>
-										<img
-											src="https://res.cloudinary.com/dydyt6wbt/image/upload/v1534731037/icons/fullscreen.svg"
-											alt="FullScreen"
-											className="image is-16x16 ico-fs"
-										/>
+										<span className="icon is-small">
+											<img
+												src="https://res.cloudinary.com/dydyt6wbt/image/upload/v1534731037/icons/fullscreen.svg"
+												alt="FullScreen"
+												className="image is-16x16 ico-fs"
+											/>
+										</span>
 									</button>
+									<span className="report--label">{this.state.reports[report].description}</span>
 									<button
 										className="button is-small button-close button--transparent"
 										onClick={(e) => this.toggleActiveReport(report, e)}
