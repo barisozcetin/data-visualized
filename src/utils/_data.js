@@ -292,6 +292,34 @@ const monthlySales = [
 	}
 ];
 
+const salesByAgeGroup = [
+	{
+		age: '14-17',
+		quantity: 15,
+		amount: 214.63
+	},
+	{
+		age: '18-24',
+		quantity: 26,
+		amount: 465.21
+	},
+	{
+		age: '25-30',
+		quantity: 48,
+		amount: 1221.2
+	},
+	{
+		age: '30-45',
+		quantity: 33,
+		amount: 860.1
+	},
+	{
+		age: '45+',
+		quantity: 30,
+		amount: 820.0
+	}
+];
+
 export function _getDailySales() {
 	// console.log(...data);
 	return new Promise((resolve, reject) => {
@@ -315,6 +343,15 @@ export function _getMonthlySales() {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			resolve([ ...monthlySales ].sort((a, b) => new Date(a.month) - new Date(b.month)));
+		}, 1000);
+	});
+}
+
+export function _getSalesByAgeGroup() {
+	// console.log(...data);
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve([ ...salesByAgeGroup ].sort((a, b) => new Date(a.age) - new Date(b.age)));
 		}, 1000);
 	});
 }

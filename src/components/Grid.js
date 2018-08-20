@@ -3,9 +3,11 @@ import { SortablePane, Pane } from 'react-sortable-pane';
 import { connect } from 'react-redux';
 
 import GridItem from './GridItem';
+import Modal from './Modal';
 
 export class Grid extends Component {
 	state = {
+		modalActive: false,
 		sales: [ { name: 'ali', amount: 100 }, { name: 'baris', amount: 146 }, { name: 'osman', amount: 167 } ],
 		order: [ 'dailySales', 'productSales', 'monthlySales', 'salesByAge' ],
 		panes: {
@@ -55,6 +57,17 @@ export class Grid extends Component {
 			this.setState((prev) => ({ order: [ ...prev.order, report ] }));
 		}
 	};
+
+	toggleModal = (report) => {
+		console.log('aaa toggle ' + report);
+		if (!report) {
+			console.log('aloooo toggle');
+			this.setState({ modalActive: false });
+		}
+	};
+
+	modalContent = <div>aa</div>;
+
 	render() {
 		const reportsList = (
 			<ul>
@@ -72,6 +85,8 @@ export class Grid extends Component {
 				))}
 			</ul>
 		);
+		// let modalContent;
+		console.log('mc: ' + this.modalContent);
 		return (
 			<div className="grid">
 				<SortablePane
@@ -109,7 +124,30 @@ export class Grid extends Component {
 								minWidth="100"
 								maxWidth="800"
 							>
-								<p>{report}</p>
+								<button
+									className="button button--transparent button-fullscreen"
+									onClick={() => {
+										this.modalContent = (
+											<GridItem
+												num={1}
+												report={report}
+												data={this.props[report] ? this.props[report] : this.state.sales}
+												height={600}
+												width={800}
+												reportType={this.state.reports[report].type}
+												showLabel
+											/>
+										);
+										console.log(this.modalContent);
+										this.setState({ modalActive: true });
+									}}
+								>
+									<img
+										src="https://res.cloudinary.com/dydyt6wbt/image/upload/v1534731037/icons/fullscreen.svg"
+										alt="FullScreen"
+										className="image is-16x16 ico-fs"
+									/>
+								</button>
 								<GridItem
 									num={1}
 									report={report}
@@ -125,6 +163,9 @@ export class Grid extends Component {
 					})}
 				</SortablePane>
 				<div className="filters">{reportsList}</div>
+				<Modal isActive={this.state.modalActive} onClose={() => this.toggleModal()}>
+					{this.modalContent}
+				</Modal>
 				<style jsx>{`
 					.grid {
 						display: grid;
