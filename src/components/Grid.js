@@ -189,7 +189,7 @@ export class Grid extends Component {
 					.grid {
 						display: grid;
 						min-height: 100vh;
-						grid-template-rows: 650px auto;
+						grid-template-rows: 650px 120px;
 						margin: 20px;
 					}
 					.filters {
