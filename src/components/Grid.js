@@ -192,6 +192,10 @@ export class Grid extends Component {
 						grid-template-rows: 650px auto;
 						margin: 20px;
 					}
+					.filters {
+						display: flex;
+						justify-content: center;
+					}
 				`}</style>
 			</div>
 		);
